@@ -1,0 +1,44 @@
+<h2>Tamplate: <small>Dinámicos</small></h2>
+<hr>
+<form (ngSubmit)="guardar()" #miFormulario="ngForm" autocomplete="off">
+    <div class="mb-3 row">
+        <label for="" class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="Nombre de la persona" required ngModel name="Nombre"
+                minlength="1" [ngModel]="persona.nombre">
+            <span *ngIf="nombreValido()" class="form-text text-danger">Este campo es obligatorio</span>
+        </div>
+    </div><!-- Nombre -->
+
+
+    <div class="mb-3 row">
+        <label for="" class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Agregar favorito" [(ngModel)]="nuevoJuego"
+                    name="nuevoJuego" (keyup.enter)="agregarJuego()">
+                <button  type="button" class="btn btn-outline-primary" (click)="agregarJuego()">Agregar</button>
+            </div>
+
+        </div>
+    </div><!-- Agregar favorito -->
+
+    <div class="mb-3 row">
+        <label for="" class="col-sm-3 col-form-label">favorito</label>
+        <div class="col-sm-9">
+            <div class="input-group mb-1" *ngFor="let item of persona.favorito; let i = index">
+                <input [(ngModel)]="item.nombre" name="favorito_{{i}}" type="text" class="form-control " required="">
+                <button type="button" class="btn btn-outline-danger" (click)="eliminar(i)">Eliminar</button>
+            </div>
+
+        </div>
+    </div><!-- favoritos -->
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary float-end" [disabled]="miFormulario.invalid">Guardar</button>
+        </div>
+    </div>
+
+
+</form>
